@@ -1,0 +1,330 @@
+<html>
+	<head>
+		<title> RPG Machine</title>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css">
+		
+		
+		<style>
+			body, html{
+				background-color:#333333;
+			}
+			.panel {
+				width: 800px;
+				border: 1px solid #dedede;
+				padding: 8px;
+				margin: auto;
+				margin-top: 2%;
+				background-color:#9999bb;
+				-moz-box-shadow: 10px 10px 5px #000;
+			}
+			.panel fieldset {
+				border: 1px groove black;
+				padding: 4px;
+				xopacity: 0;
+				padding-bottom: 16px;
+			}
+			.panel legend {
+				padding: 4px;
+			}
+			
+			.panel li {
+				float: left;
+			}
+			
+			.panel h1 {
+				font-family: Verdana, Verdana, Geneva, sans-serif;
+				font-size: 2em;
+				text-shadow: 2px 2px 2px #333;
+				text-align: center;
+				font-weight:bold;
+				color:#000;
+			}
+			.panel .pb {
+				float: right;
+			}
+			
+
+		</style>
+		<script src="http://yui.yahooapis.com/3.0.0/build/yui/yui-min.js"></script> 
+		
+		
+		<script type="text/javascript">
+				var RM; // make RM global scope;
+			
+			
+				YUI({
+						combine: true, 
+						timeout: 10000,
+						modules: {
+							'gallery-yui2': {
+								fullpath: 'http://yui.yahooapis.com/gallery-2009.11.19-20/build/gallery-yui2/gallery-yui2-min.js',
+								requires: ['node-base', 'get', 'async-queue'],
+								optional: [],
+								supersedes: []
+							}
+						}
+				}).use("anim", "gallery-yui2", function(Y) {
+					Y.log("so far so good.")	
+					
+					/** set up RM **/
+					
+					RM = {
+						init: function(){
+							Y.log("RM.init called");
+							
+							RM.setupButtons();
+							RM.showStart();
+							
+						},
+						setupButtons: function(){
+							
+							
+							Y.one("#new").on("click",function(e){
+								e.preventDefault();
+								//Y.log(e)
+								//Y.log(this);
+								Y.all(".panel fieldset").setStyle("opacity",0);
+								Y.one("#adventure").setStyle("opacity",1);
+							});
+							
+							Y.all(".panel li button")
+								//.setStyle("border","1px solid red");
+								.on("click",function(e){
+									e.preventDefault();
+									var obj = {
+										type: e.currentTarget.getAttribute("id")
+									}
+									//Y.log(e.currentTarget.getAttribute("id"))
+									//Y.log(this.getAttribute("id"))
+									RM.btnClick(obj)
+								})
+							
+						},
+						showStart: function(){
+								var anim = new Y.Anim({
+        								node: '#game',
+        								to: { opacity: 1 }
+    								});
+								anim.run();
+									
+						},
+						btnClick: function(obj){
+							var type = obj.type;
+							Y.log("btnClick: type = "+ type);
+							
+							switch(type){
+								case "load":
+									Y.log("in load switch -- " + type);
+									break;
+								case "new":
+									Y.log("in new switch");
+									RM.data.panels["adventure"].val+=10;
+									break;
+								default:
+									Y.log("in btnClick switch - default");
+							}
+							
+							//finally, update the progress bars
+							RM.updatePBs();
+						},
+						updatePBs: function(){
+							Y.log("in updatePBs");
+							//progressBar.set('value',70);
+							var pblen = RM.data.pid.length; 
+							for(j =0;j < pblen; j++){
+								var thePanel = RM.data.panels[RM.data.pid[j]];
+								var thePB = thePanel.pb;
+								thePB.set("value",thePanel.val);
+							}
+						},
+						data: {
+							pid: ["adventure","dungeon","quest","boss","monster","shop","inn"],
+							panels: {
+								game: {
+									val: 0,
+									pb:null
+								},
+								playing: {
+									val: 0,
+									pb:null
+								},
+								adventure: {
+									val:0,
+									pb:null
+								},
+								dungeon:{
+									val: 0,
+									pb:null
+								},
+								quest: {
+									val: 0,
+									pb:null
+								},
+								boss:{
+									val: 0,
+									pb:null
+								},
+								monster:{
+									val: 0,
+									pb:null
+								},
+								shop: {
+									val: 0,
+									pb:null
+								},
+								inn: {
+									val: 0,
+									pb:null
+								}
+							
+							
+							}
+						
+						}
+					
+					}
+					/** end setup RM **/
+					
+					
+				
+					/** YUI2 Land **/
+					Y.yui2().use('progressbar','animation',function(){
+
+					
+					// set up progressbars
+					var pblen = RM.data.pid.length;
+					for (i = 0; i < pblen; i++) {
+						Y.log("pid = "+RM.data.pid[i]);
+						
+						RM.data.panels[RM.data.pid[i]].pb = new YAHOO.widget.ProgressBar({
+							value: 0,
+							maxValue: 100,
+							anim: true
+						});
+
+					}
+					
+					
+					//render the progressbars when ready
+					Y.on("domready", function(){
+						for (i = 0; i < RM.data.pid.length; i++) {
+							RM.data.panels[RM.data.pid[i]].pb.render(RM.data.pid[i]+"-pb");
+							var anim = RM.data.panels[RM.data.pid[i]].pb.get("anim");
+								anim.duration = 1;
+								anim.method = YAHOO.util.Easing.backBoth;
+						}
+						
+						//continue with starting the game
+						
+						RM.init();
+						
+					})
+					
+					
+						
+					});
+					/** YUI2 Land **/
+				
+				
+				
+				
+				
+				});
+					
+					
+		</script>
+	</head>
+	<body class="yui-skin-sam">
+		<div class="panel">
+			<h1><img src="img/logo2.png"></h1>
+			<form>
+				<!-- game -->
+				<fieldset id="game">
+					<legend>Game:</legend>
+					<ul>
+						<li><button id="new">New</button></li>
+						<li><button id="load">Load</button></li>
+					</ul>
+				</fieldset>
+
+				<fieldset id="playing">
+					<legend>Playing:</legend>
+					<ul>
+						<li><button id="save">Save</button></li>
+						<li><button id="delete">Delete</button></li>
+					</ul>
+					
+				</fieldset>
+				<!-- progress -->
+				<fieldset id="adventure">
+					<legend>Adventure:</legend>
+					<ul>
+						<li><button id="new">New</button></li>
+						<li><button id="load">Load</button></li>
+					</ul>
+					<div class="pb" id="adventure-pb"></div>
+				</fieldset>				
+
+				<fieldset id="dungeon">
+					<legend>Dungeon:</legend>
+					<ul>
+						<li><button id="enter">Enter</button></li>
+						<li><button id="exit">Exit</button></li>
+					</ul>
+					<div class="pb" id="dungeon-pb"></div>
+				</fieldset>
+						
+				<fieldset id="quest">
+					<legend>Quest:</legend>
+					<ul>
+						<li><button id="embark">Embark</button></li>
+						<li><button id="complete">Complete</button></li>
+					</ul>
+					<div class="pb" id="quest-pb"></div>
+				</fieldset>					
+				
+				<!-- encounter -->
+				<fieldset id="boss">
+					<legend>Boss:</legend>
+					<ul>
+						<li><button id="battle">Battle</button></li>
+						<li><button id="surrender">Surrender</button></li>
+					</ul>
+					<div class="pb" id="boss-pb"></div>
+				</fieldset>						
+
+				<fieldset id="monster">
+					<legend>Monster:</legend>
+					<ul>
+						<li><button id="fight">Fight</button></li>
+						<li><button id="flee">Flee</button></li>
+					</ul>
+					<div class="pb" id="monster-pb"></div>
+				</fieldset>		
+				
+				<fieldset id="shop">
+					<legend>Shop:</legend>
+					<ul>
+						<li><button id="buy">Buy</button></li>
+						<li><button id="sell">Sell</button></li>
+					</ul>
+					<div class="pb" id="shop-pb"></div>
+				</fieldset>		
+				<fieldset id="inn">
+					<legend>Inn:</legend>
+					<ul>
+						<li><button id="heal">Heal</button></li>
+						<li><button id="rest">Rest</button></li>
+					</ul>
+					<div class="pb" id="inn-pb"></div>
+				</fieldset>		
+					
+			</form>
+
+		</div>
+
+		
+		
+		
+	</body>
+</html>

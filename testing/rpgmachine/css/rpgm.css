@@ -1,0 +1,56 @@
+/** RPG Machine CSS **/
+
+body, 
+html{
+	background-color:#333333;
+}
+
+.storage {
+	display: none;
+}
+
+.stage {
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+
+.cell {
+	display: table-cell;
+	vertical-align:middle;
+}
+
+.content {
+	background-color:#170d3f;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	width: 600px;
+	margin:auto;
+	padding: 16px;
+	
+}
+
+#splash h1 {
+	color: #FFF;
+	font-size: 1.5em;
+	text-shadow:2px 2px 2px #000;
+}
+
+#splash {
+	text-align: center;
+}
+
+label {
+	color: #FFF;
+	text-shadow: 2px 2px 2px #000;
+}
+
+fieldset {
+	position: relative;
+}
+
+.pb {
+	position: absolute;
+	top: 0px;
+	right: 8px;
+}

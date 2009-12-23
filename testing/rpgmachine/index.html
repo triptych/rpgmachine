@@ -1,0 +1,155 @@
+<html>
+	<head>
+		<title>RPG MACHINE</title>
+		<!--
+			created by Andrew Wooldridge - triptych@gmail.com
+		-->
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css">
+		<style>
+			.wrapper {
+				display: table;
+				width: 100%;
+				height: 100%;
+			}
+			.component {
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+
+			}
+			#rpgmachine {
+				background-color: tan;
+				height: 300;
+				width: 300;
+				margin: auto;
+				
+			}
+		</style>
+		
+		<script src="http://yui.yahooapis.com/3.0.0/build/yui/yui-min.js"></script> 
+
+
+	<script type="text/javascript">
+YUI({
+		combine: true, 
+		timeout: 10000,
+		modules: {
+			'gallery-yui2': {
+				fullpath: 'http://yui.yahooapis.com/gallery-2009.11.19-20/build/gallery-yui2/gallery-yui2-min.js',
+				requires: ['node-base', 'get', 'async-queue'],
+				optional: [],
+				supersedes: []
+			}
+		}
+	}).use("anim", "gallery-yui2", function(Y) {
+    
+	var anim = new Y.Anim({
+        node: '#logo',
+        to: { opacity: 0 }
+    });
+
+    var onClick = function(e) {
+        e.preventDefault(); 
+        anim.run();
+    };
+	
+	/**
+	Y.yui2().use('tabview', function() {
+    	var myTabs = new YAHOO.widget.TabView("demo");
+	});
+	**/
+	
+	Y.yui2().use('progressbar',function(){
+		Y.log("progressbar init")
+		var progressBar = new YAHOO.widget.ProgressBar({
+			value: 50,
+			maxValue: 100,
+			anim:true
+		}); 
+		//console.log(progressBar);
+
+		/**
+		var anim = progressBar.get('anim');
+			anim.duration = 3;
+			anim.method = YAHOO.util.Easing.backBoth;
+		**/
+		
+		Y.on("domready",function(){
+			progressBar.render("pbContainer");
+			//var anim = progressBar.get("anim")
+			//console.log(anim)
+		})
+		
+	})
+	
+	Y.on("domready",function(){
+		Y.get('#logo').on('click', onClick);
+		/**
+		Y.yui2().use("progressbar", function(){
+			var progressBar = new YAHOO.widget.ProgressBar({width:"300px"}).render("pbContainer"); 
+			Y.log(progressBar)
+		});
+		**/
+		/**
+
+**/
+		
+		
+		
+		
+	});
+    
+
+});
+
+</script>
+
+
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="component">
+				
+				
+				<div id="rpgmachine">
+				
+				
+					<div class="module">
+						<h1 id="logo">RPG MACHINE</h1>
+						<div><button>START</button></div>
+						
+					</div>
+					<div class="module">
+						<h2>Testing</h2>
+						<div id="pbContainer"></div>
+					</div>
+	<!--				
+					<div class="module">
+						
+						
+						<div id="demo" class="yui-navset">
+    <ul class="yui-nav">
+        <li class="selected"><a href="#tab1"><em>Tab One Label</em></a></li>
+        <li><a href="#tab2"><em>Tab Two Label</em></a></li>
+        <li><a href="#tab3"><em>Tab Three Label</em></a></li>
+    </ul>            
+    <div class="yui-content">
+        <div><p>Tab One Content</p></div>
+        <div><p>Tab Two Content</p></div>
+        <div><p>Tab Three Content</p></div>
+    </div>
+</div>
+
+						
+						
+					</div>
+		-->			
+				</div>
+			</div>
+		</div>
+	
+	
+	
+		
+	</body>
+</html>

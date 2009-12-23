@@ -1,0 +1,166 @@
+<html>
+	<head>
+		<title>RPG Machine v 001</title>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css">
+		<style>
+			.panel {
+				width: 800px;
+				border: 1px solid blue;
+				padding: 8px;
+			}
+			.panel fieldset {
+				border: 1px groove black;
+				padding: 4px;
+				opacity: 0;
+			}
+			.panel legend {
+				padding: 4px;
+			}
+			
+			.panel li {
+				float: left;
+			}
+
+		</style>
+		
+		<script src="http://yui.yahooapis.com/3.0.0/build/yui/yui-min.js"></script>
+		<script>
+			YUI({
+				combine: true, 
+				timeout: 10000,
+				modules: {
+					'gallery-yui2': {
+						fullpath: 'http://yui.yahooapis.com/gallery-2009.11.19-20/build/gallery-yui2/gallery-yui2-min.js',
+						requires: ['node-base', 'get', 'async-queue'],
+						optional: [],
+						supersedes: []
+					}
+				}
+			}).use("anim","gallery-yui2", function(Y){
+				Y.on("domready",function(){
+					
+					RM = {
+						init: function(){
+							Y.log("RM.init called");
+							anim.run();
+							RM.progressTest();
+						},
+						progressTest: function(){
+							Y.log("progressTest")
+
+						}
+					}
+					
+					
+					
+					//setup
+					
+					var anim = new Y.Anim({
+						node: "#game",
+						to: {
+							opacity: 1
+							
+						}
+					});
+					
+					
+					//actions
+					/**
+					anim.run();
+					**/
+					
+					RM.init();
+					
+				})
+			})
+			
+		</script>
+		
+	</head>
+	<body>
+		<h1>rpg machine</h1>
+		<div class="panel">
+			<form>
+				<!-- game -->
+				<fieldset id="game">
+					<legend>Game:</legend>
+					<ul>
+						<li><button>New</button></li>
+						<li><button>Load</button></li>
+					</ul>
+				</fieldset>
+
+				<fieldset id="playing">
+					<legend>Playing:</legend>
+					<ul>
+						<li><button>Save</button></li>
+						<li><button>Delete</button></li>
+					</ul>
+				</fieldset>
+				<!-- progress -->
+				<fieldset id="adventure">
+					<legend>Adventure:</legend>
+					<ul>
+						<li><button>New</button></li>
+						<li><button>Load</button></li>
+					</ul>
+				</fieldset>				
+
+				<fieldset id="dungeon">
+					<legend>Dungeon:</legend>
+					<ul>
+						<li><button>Enter</button></li>
+						<li><button>Exit</button></li>
+					</ul>
+				</fieldset>
+						
+				<fieldset id="quest">
+					<legend>Adventure:</legend>
+					<ul>
+						<li><button>Embark</button></li>
+						<li><button>Complete</button></li>
+					</ul>
+				</fieldset>					
+				
+				<!-- encounter -->
+				<fieldset id="boss">
+					<legend>Boss:</legend>
+					<ul>
+						<li><button>Battle</button></li>
+						<li><button>Surrender</button></li>
+					</ul>
+				</fieldset>						
+
+				<fieldset id="monster">
+					<legend>Monster:</legend>
+					<ul>
+						<li><button>Fight</button></li>
+						<li><button>Flee</button></li>
+					</ul>
+				</fieldset>		
+				
+				<fieldset id="shop">
+					<legend>Shop:</legend>
+					<ul>
+						<li><button>Buy</button></li>
+						<li><button>Sell</button></li>
+					</ul>
+				</fieldset>		
+				<fieldset id="inn">
+					<legend>Inn:</legend>
+					<ul>
+						<li><button>Heal</button></li>
+						<li><button>Rest</button></li>
+					</ul>
+				</fieldset>		
+					
+			</form>
+
+		</div>
+		
+		
+		<div id="pbContainer"></div>
+
+		
+	</body>
+</html>
